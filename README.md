@@ -1,1 +1,1 @@
-# heroku-and-test-boiler
+# heroku-boiler
