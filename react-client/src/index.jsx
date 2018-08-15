@@ -1,36 +1,13 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import List from './components/List.jsx';
+import App from './components/App.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: []
-    }
-  }
 
-  componentDidMount() {
-    $.ajax({
-      url: '/items',
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
-  }
+ReactDOM.render(
+  <App />,
+  document.getElementById('app')
+);
 
-  render () {
-    return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
-    </div>)
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById('app'));
+// Do NOT include this file in karma.conf.js for test coverage BECAUSE it will give target error. This error occurs
+// because of the ReactDOM render line. So either exclude this file OR write your pattern right.

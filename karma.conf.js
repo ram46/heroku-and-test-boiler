@@ -1,52 +1,48 @@
-// Karma configuration
-// Generated on Tue Aug 14 2018 10:44:03 GMT-0700 (PDT)
-
 
 var path = require('path');
-var TEST_DIR = path.join(__dirname, '/test/clientSpecs');
-var webpackConfig = require('./webpack.config');
+var webpackConfig = require('./webpack.config.js');
 webpackConfig.entry = undefined;
 
 module.exports = function(config) {
-
   config.set({
+
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
+    },
+
+    reporters: ['progress', 'coverage'],
+
     basePath: '',
     frameworks: ['mocha', 'chai'],
-
     files: [
-      { pattern: 'tests/**/*.js', watching: true }
+      'react-client/src/components/*.jsx',
+      { pattern: 'tests/**/*.js'}
     ],
-
     exclude: [
       'tests/**/*.swp'
     ],
-
     preprocessors: {
-        'tests/**/*.js': ['webpack']
+        'react-client/src/components/*.jsx': ['webpack', 'coverage'],
+        'tests/**/*.js': ['webpack'] // DO NOT ADD test in test coverage and therefore no 'coverage' tag added
     },
-
     webpack: webpackConfig,
 
-    reporters: ['progress'],
-
-    port: 9876, // web server port
-
+    port: 9876,
     colors: true,
-
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
-
+    logLevel: config.LOG_DEBUG,
     autoWatch: true,
-
     browsers: ['Chrome'],
-
-
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
-
-    // Concurrency level
-    // how many browser should be started simultaneous
     concurrency: Infinity
   })
 }
+
+
+// reference - https://www.npmjs.com/package/karma-coverage
+
+
+
+
+
+
